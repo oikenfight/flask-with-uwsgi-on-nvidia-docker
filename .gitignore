@@ -1,0 +1,4 @@
+logs/*
+app/config.py
+app/uwsgi.pid
+
