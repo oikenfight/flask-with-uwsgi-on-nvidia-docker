@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM nvidia/cuda:latest
 
 MAINTAINER Yuta Oikawa
 
@@ -36,20 +36,18 @@ RUN pip3 install \
     setuptools \
     flask \
     uwsgi
-#RUN pip3 install \
-#    setuptools \
-#    cupy-cuda92 \
-#    cupy \
-#    chainer \
-#    scipy \
-#    pandas \
-#    scikit-learn \
-#    pillow \
-#    h5py \
-#    --no-cache-dir
+RUN pip3 install \
+    setuptools \
+    cupy-cuda92 \
+    cupy \
+    chainer \
+    scipy \
+    pandas \
+    scikit-learn \
+    pillow \
+    h5py \
+    --no-cache-dir
 
 RUN mkdir workspace
-
-#WORKDIR /workspace/app
 
 CMD ["uwsgi","--ini","/workspace/app/uwsgi.ini"]
