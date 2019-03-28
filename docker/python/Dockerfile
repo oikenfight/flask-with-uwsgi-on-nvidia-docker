@@ -1,7 +1,7 @@
-FROM web_api_app_oikawa
+FROM workspace
 
 MAINTAINER Yuta Oikawa
 
-ENTRYPOINT ["python3"]
+ENTRYPOINT ["python"]
 
 CMD ["--version"]

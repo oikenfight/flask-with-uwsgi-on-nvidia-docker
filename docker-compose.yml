@@ -1,33 +1,33 @@
 version: '3'
 
 services:
-  web_api_app_oikawa:
-    image: web_api_app_oikawa
+  workspace:
+    image: workspace
     build:
-      context: docker/app
+      context: docker/workspace
       dockerfile: Dockerfile
     volumes:
       - ./:/workspace
-      - ./logs/uwsgi/:/workspace/app/logs
+      - ./logs/uwsgi/:/workspace/logs
     working_dir: "/workspace"
     ports:
       - "3031:3031"     # nginx と uwsgi を socket 接続するためのポート
     tty: true
-  web_api_nginx_oikawa:
-    image: web_api_nginx_oikawa
+  nginx:
+    image: nginx
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
     links:
-      - web_api_app_oikawa    # コンテナ内でサービスを名前解決できるようにする
+      - workspace    # コンテナ内でサービスを名前解決できるようにする
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./logs/nginx/:/var/log/nginx
-  web_api_python_oikawa:
+  python:
     depends_on:
-      - web_api_app_oikawa
-    image: web_api_python_oikawa
+      - workspace
+    image: python
     build:
       context: ./docker/python
       dockerfile: Dockerfile
